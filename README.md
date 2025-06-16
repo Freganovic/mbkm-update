@@ -77,9 +77,9 @@ Admin	admin	admin
 
     🧠 Fadli Ramadan (Tuan Muda) – Developer & Analyst
 
-    💼 Dosen Pembimbing – Supervisor MBKM
+    💼 Muhammad Fatchan S.Kom., M.Kom – Supervisor MBKM
 
-    🏛️ [Nama Kampus Anda] – Institusi Pendukung
+    🏛️ UNIVERSITAS PELITA BANGSA – Institusi Pendukung
 
 📃 Lisensi
 
@@ -89,5 +89,5 @@ Proyek ini dilisensikan di bawah MIT License.
 Jika Anda merasa proyek ini bermanfaat, silakan beri ⭐ di GitHub, atau hubungi kami untuk kolaborasi lebih lanjut.
 📬 Kontak
 
-📧 Email: fadli.tuanmuda@example.com
-🌐 Website: mbkm.tuanmuda.dev (jika tersedia)
+📧 Email: fadliardanasanzay11@gmail.com
+🌐 Website: mbkm.tuanmuda.dev
