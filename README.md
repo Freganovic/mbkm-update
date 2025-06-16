@@ -36,38 +36,34 @@ Sistem Pengajuan MBKM adalah aplikasi berbasis web yang dirancang untuk mempermu
 
 ## 📦 Instalasi Lokal
 
-### 1. Clone Repository
-```bash
-git clone https://github.com/Freganovic/mbkm-update.git
+### 📦 Clone Repository
 
+Ikuti langkah-langkah berikut untuk menjalankan proyek ini di lingkungan lokal:
 
+---
 
+### 🔧 1. Clone Repository
+     ```bash
+     git clone https://github.com/Freganovic/mbkm-update.git:
 
-### 2. Pindah ke direktori project
-cd mbkm-update
+### 🔧 2. pindah ke direktori project
+      cd mbkm-update
 
-### 3. import database
-Jalankan XAMPP dan aktifkan Apache dan MySQL.
+### 🔧 3. import database
+       Jalankan XAMPP dan aktifkan Apache dan MySQL.
 
-Akses phpMyAdmin melalui browser:
+       Akses phpMyAdmin melalui browser:
+       http://localhost/phpmyadmin
+       Buat database baru, contoh: mbkm
+       Import file .sql dari folder database/ atau file backup yang tersedia.
+       Klik Go untuk menyelesaikan proses.
+   
+### 🔧 4. jalankan di browser
+        Letakkan folder di dalam direktori htdocs (jika belum), lalu akses:
+        http://localhost/mbkm-update
+        Jika konfigurasi database memerlukan penyesuaian, ubah file seperti config.php atau .env sesuai dengan pengaturan lokal Anda.
 
-http://localhost/phpmyadmin
-
-Buat database baru, contoh: mbkm
-
-Import file .sql dari folder database/ atau file backup yang tersedia.
-
-Klik Go untuk menyelesaikan proses.
-
-### 4. jalankan di browser
-Letakkan folder di dalam direktori htdocs (jika belum), lalu akses:
-
-http://localhost/mbkm-update
-
-Jika konfigurasi database memerlukan penyesuaian, ubah file seperti config.php atau .env sesuai dengan pengaturan lokal Anda.
-
-### 1. Clone Repository
-
+ 
 🔑 Login Demo
 Role	Username	Password
 Mahasiswa	mahasiswa1	123456
