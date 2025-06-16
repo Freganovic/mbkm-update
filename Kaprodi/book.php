@@ -71,13 +71,13 @@ if (empty($_SESSION['email'])) {
                             <p>Pendaftaran MBKM</p>
                         </a>
                     </li>
-                    <li class="active">
+                    <li>
                         <a href="jenis_pengajuan">
                             <i class="pe-7s-server"></i>
                             <p>Program MBKM</p>
                         </a>
                     </li>
-                    <li>
+                    <li class="active">
                         <a href="book">
                             <i class="pe-7s-note2"></i>
                             <p>Log-Book</p>
@@ -113,113 +113,98 @@ if (empty($_SESSION['email'])) {
                                 <div class="header">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <h4 class="title">Jenis Pengajuan</h4>
+                                            <h4 class="title">Log-Book</h4>
                                         </div>
                                         <div class="col-md-6" align="right">
-                                            <a href="tambah_jenispengajuan">
+                                            <a href="data_book">
                                                 <button type="button" class="btn btn-primary btn-fill">
-                                                    <i class="fa fa-plus"></i> Tambah Program MBKM
+                                                    <i></i> Laporan Harian
                                                 </button>
                                             </a>
                                         </div>
                                     </div>
                                     <br>
-                                    <form id="form_user" action="?" method="get">
+                                    <form id="form_user" action="" method="get">
                                         <div class="row">
                                             <div class="col-md-5">
                                                 <div class="form-group">
                                                     <label>Pencarian : </label>
-
-                                                    <?php
-                                                    if (isset($_GET['cari'])) {
-                                                        $username = ($_GET["cari"]);
-                                                    ?>
-                                                        <input type="text" name="cari" id="cari" class="form-control" placeholder="Nama Program MBKM" value="<?php echo $username ?>">
-                                                    <?php
-                                                    } else {
-                                                    ?>
-                                                        <input type="text" name="cari" id="cari" class="form-control" placeholder="Nama Program MBKM">
-                                                    <?php
-                                                    }
-                                                    ?>
+                                                    <input type="text" name="cari" id="cari" class="form-control" placeholder="Nama" value="<?php echo isset($_GET['cari']) ? htmlspecialchars($_GET['cari']) : ''; ?>">
                                                 </div>
                                             </div>
                                             <div class="col-md-1">
                                                 <label><br></label>
-                                                <button type="submit" rel="tooltip" class="btn btn-primary btn-fill">
+                                                <button type="submit" class="btn btn-primary btn-fill">
                                                     <i class="fa fa-search"></i> Cari
                                                 </button>
                                             </div>
                                         </div>
                                     </form>
                                 </div>
+
                                 <div class="content table-responsive table-full-width">
                                     <?php
-                                    if (isset($_GET['cari'])) {
-                                        $jenispengajuan = ($_GET["cari"]);
-                                        $query = "SELECT * FROM jenis_pengajuan WHERE jenis_pengajuan like '%$jenispengajuan%' ORDER BY id_jenis_pengajuan";
+                                    $cari = isset($_GET['cari']) ? mysqli_real_escape_string($con, $_GET['cari']) : '';
+                                    if ($cari) {
+                                        $query = "SELECT nama, nim, kelas FROM pendaftaran WHERE nama LIKE '%$cari%' ORDER BY nim";
                                     } else {
-                                        $query = "SELECT * FROM jenis_pengajuan ORDER BY id_jenis_pengajuan";
+                                        $query = "SELECT nama, nim, kelas FROM pendaftaran ORDER BY nim";
                                     }
 
                                     $result = mysqli_query($con, $query);
-                                    if ($result->num_rows == 0) {
-                                        echo '<div class="content table-responsive table-full-width">
-                                        <table class="table table-hover table-striped">
-                                            <thead>
-                                                <th>No</th>
-                                                <th>PERIODE</th>
-                                                <th>PROGRAM MBKM</th>
-                                                <th>BATAS PROGRAM</th>
-                                                <th>Pengaturan</th>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td colspan="8" align="center">
-                                                        Anda tidak memiliki pengajuan
-                                                        <br>
-                                                        <a href="user">
-                                                            <button type="button" class="btn btn-primary btn-fill btn-sm">
-                                                                <i class="fa fa-refresh"></i> Refresh data
-                                                            </button>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>';
+
+                                    if (mysqli_num_rows($result) == 0) {
+                                        echo '
+                                <div class="content table-responsive table-full-width">
+                                    <table class="table table-hover table-striped">
+                                        <thead>
+                                            <th>No</th>
+                                            <th>Nama</th>
+                                            <th>NIM</th>
+                                            <th>Kelas</th>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td colspan="4" align="center">
+                                                    Tidak ada data pendaftaran
+                                                    <br>
+                                                    <a href="user">
+                                                        <button type="button" class="btn btn-primary btn-fill btn-sm">
+                                                            <i class="fa fa-refresh"></i> Refresh data
+                                                        </button>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>';
                                     } else {
-                                        echo '<div class="content table-responsive table-full-width">
-                                        <table class="table table-hover table-striped table-paginate">
-                                                <thead>
-                                                <th>No</th>
-                                                <th>PERIODE</th>
-                                                <th>PROGRAM MBKM</th>
-                                                <th>BATAS PROGRAM</th>
-                                                <th>Pengaturan</th>
-                                                </thead>
-                                            <tbody>';
+                                        echo '
+                                <div class="content table-responsive table-full-width">
+                                    <table class="table table-hover table-striped table-paginate">
+                                        <thead>
+                                            <th>No</th>
+                                            <th>Nama</th>
+                                            <th>NIM</th>
+                                            <th>Kelas</th>
+                                        </thead>
+                                        <tbody>';
                                         $no = 1;
                                         while ($data = mysqli_fetch_assoc($result)) {
-                                            echo '<tr>
+                                            $nama_url = urlencode($data['nama']);
+                                            echo '
+                                        <tr onclick="window.location.href=\'http://localhost/system_pengajuan-mbkm/kaprodi/data_book?mahasiswa=' . $nama_url . '\'" style="cursor: pointer;">
                                             <td>' . $no . '</td>
-                                            <td>' . $data['periode'] . '</td>
-                                            <td>' . $data['jenis_pengajuan'] . '</td>
-                                            <td>' . $data['tgl_mulai'] . ' - ' . $data['tgl_selesai'] . '</td>
-                                            <td>
-                                                <a href="edit_jenispengajuan?id=' . $data['id_jenis_pengajuan'] . '">
-                                                    <button type="button" rel="tooltip" class="btn btn-primary btn-fill btn-sm">
-                                                        <i class="fa fa-edit"></i>
-                                                    </button>
-                                                </a>
-                                                <button onclick="hapus(' . $data['id_jenis_pengajuan'] . ')" type="button" rel="tooltip" class="btn btn-danger btn-fill btn-sm">
-                                                    <i class="fa fa-trash"></i>
-                                                </button>';
+                                            <td>' . htmlspecialchars($data['nama']) . '</td>
+                                            <td>' . htmlspecialchars($data['nim']) . '</td>
+                                            <td>' . htmlspecialchars($data['kelas']) . '</td>
+                                        </tr>';
                                             $no++;
                                         }
-                                        echo '</tbody>
-                                        </table>
-                                    </div>';
+                                        echo '
+                                        </tbody>
+                                    </table>
+                                </div>';
                                     }
                                     ?>
                                 </div>
@@ -229,7 +214,13 @@ if (empty($_SESSION['email'])) {
                 </div>
             </div>
         </div>
-    </div>
+
+        <!-- Tambahan CSS opsional -->
+        <style>
+            table tr:hover {
+                background-color: #f5f5f5;
+            }
+        </style>
 
 
 </body>

@@ -96,6 +96,12 @@ function tanggal_indo($tanggal)
                             <p>Program MBKM</p>
                         </a>
                     </li>
+                    <li>
+                        <a href="book">
+                            <i class="pe-7s-note2"></i>
+                            <p>Log-Book</p>
+                        </a>
+                    </li>
                     <li class="active">
                         <a href="presentasi">
                             <i class="pe-7s-display1"></i> <!-- Ikon layar presentasi -->

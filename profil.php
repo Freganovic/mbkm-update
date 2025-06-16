@@ -74,6 +74,7 @@ function tanggal_indo($tanggal)
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
     <link href="assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
     <link rel="stylesheet" href="assets/dist/sweetalert.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 
 <body>
@@ -97,6 +98,12 @@ function tanggal_indo($tanggal)
                         <a href="pendaftaran">
                             <i class="fa fa-check-square"></i>
                             <p>Pendaftaran MBKM</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="kegiatan">
+                            <i class="fa fa-file-alt"></i>
+                            <p>kegiatanku</p>
                         </a>
                     </li>
                     <li>

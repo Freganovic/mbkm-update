@@ -97,6 +97,12 @@ function tanggal_indo($tanggal)
                         </a>
                     </li>
                     <li>
+                        <a href="book">
+                            <i class="pe-7s-note2"></i>
+                            <p>Log-Book</p>
+                        </a>
+                    </li>
+                    <li>
                         <a href="presentasi">
                             <i class="pe-7s-display1"></i> <!-- Ikon layar presentasi -->
                             <p>Presentasi dan Input Nilai</p>
@@ -196,99 +202,6 @@ function tanggal_indo($tanggal)
                                             </a>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-7">
-                            <div class="card ">
-                                <div class="header">
-                                    <h4 class="title">List Pengajuan</h4>
-                                    <p class="category">Status Pengajuan :
-                                        <span class="badge proses upper">proses</span>
-                                    </p>
-                                </div>
-                                <div class="content">
-                                    <div class="table-full-width">
-                                        <table class="table">
-                                            <tbody>
-
-                                                <?php
-                                                $query_pengajuan = "SELECT a.id_pengajuan, a.pengajuan, a.id_user,  b.username, a.status
-                                FROM pengajuan AS a INNER JOIN user AS b WHERE a.id_user = b.id_user
-                                AND a.status = 'proses' LIMIT 7 ";
-                                                $result_pengajuan = mysqli_query($con, $query_pengajuan);
-                                                if (!$result_pengajuan) {
-                                                    die("Query Error: " . mysqli_errno($con) .
-                                                        " - " . mysqli_error($con));
-                                                }
-                                                if ($result_pengajuan->num_rows == 0) {
-                                                    echo "<tr>
-                    <td colspan='3'>Data Pengajuan Tidak Di temukan</td>
-                </tr>";
-                                                } else {
-                                                    while ($data_pengajuan = mysqli_fetch_assoc($result_pengajuan)) {
-                                                        echo '<tr>
-                                                <td> ' . $data_pengajuan['pengajuan'] . ' - <b>' . $data_pengajuan['username'] . '</b></td>
-                                                <td class="td-actions text-right">
-                                                    <a href="detail_pengajuan?id=' . $data_pengajuan['id_pengajuan'] . '">
-                                                        <button type="button" rel="tooltip" title="Lihat Pengajuan" class="btn btn-info btn-simple btn-xs">
-                                                            <i class="fa fa-eye"></i>
-                                                        </button>
-                                                    </a>
-                                                </td>
-                                            </tr>';
-                                                    }
-                                                }
-                                                ?>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="footer">
-                                        <hr>
-                                        <div class="stats">
-                                            <a href="pengajuan">
-                                                <i class="fa fa-link"></i>
-                                                Lihat Semua Pengajuan Proses
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-5">
-                            <div class="card">
-                                <div class="header">
-                                    <h4 class="title">Riwayat</h4>
-                                </div>
-                                <div class="content">
-                                    <?php
-                                    $query2 = "SELECT a.id_riwayat, a.kegiatan, a.id_pengajuan, b.pengajuan, 
-                a.jenis_riwayat, a.kegiatan3, a.tanggal_kegiatan, b.id_user, a.notifikasi FROM riwayat 
-                AS a INNER JOIN pengajuan AS b WHERE a.id_pengajuan = b.id_pengajuan
-                ORDER BY id_riwayat DESC LIMIT 3";
-                                    $result2 = mysqli_query($con, $query2);
-                                    if (!$result2) {
-                                        die("Query Error: " . mysqli_errno($con) .
-                                            " - " . mysqli_error($con));
-                                    }
-                                    if ($result2->num_rows == 0) {
-                                        echo "<p>Tidak ada riwayat kegiatan !</p>";
-                                    } else {
-                                        while ($data2 = mysqli_fetch_assoc($result2)) {
-                                            echo '<a href="detail_pengajuan?id=' . $data2['id_pengajuan'] . '" style="color:black">
-                                <div class="card">
-                                    <div class="content">
-                                        <input type="hidden" name="id_pengajuan" value="' . $data2['id_pengajuan'] . '">
-                                        <h5><b>' . $data2['jenis_riwayat'] . ' </b> - <small>' . $data2['pengajuan'] . '</small></h5>
-                                        <h5>Tanggal kegiatan : ' . tanggal_indo($data2['tanggal_kegiatan']) . '</h5>
-                                    </div>
-                                </div>
-                            </a>';
-                                        }
-                                    }
-                                    ?>
                                 </div>
                             </div>
                         </div>

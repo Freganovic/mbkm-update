@@ -56,6 +56,7 @@ function tanggal_indo($tanggal)
     <link rel="stylesheet" href="assets/dist/sweetalert.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="assets/css/datepicker.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 
 <body>
@@ -89,6 +90,12 @@ function tanggal_indo($tanggal)
                         <a href="pendaftaran">
                             <i class="fa fa-check-square"></i>
                             <p>Pendaftaran MBKM</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="kegiatan">
+                            <i class="fa fa-file-alt"></i>
+                            <p>kegiatanku</p>
                         </a>
                     </li>
                     <li>

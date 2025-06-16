@@ -92,6 +92,12 @@ function tanggal_indo($tanggal)
                         </a>
                     </li>
                     <li>
+                        <a href="kegiatan">
+                            <i class="fa fa-file-alt"></i>
+                            <p>kegiatanku</p>
+                        </a>
+                    </li>
+                    <li>
                         <a href="presentasi">
                             <i class="pe-7s-display1"></i> <!-- Ikon layar presentasi -->
                             <p>Presentasi dan Input Nilai</p>

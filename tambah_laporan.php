@@ -130,15 +130,15 @@ function tanggal_indo($tanggal)
                         </a>
                     </li>
                     <li>
-                        <a href="presentasi">
-                            <i class="pe-7s-display1"></i> <!-- Ikon layar presentasi -->
-                            <p>Presentasi dan Input Nilai</p>
-                        </a>
-                    </li>
-                    <li>
                         <a href="kegiatan">
                             <i class="fa fa-file-alt"></i>
                             <p>kegiatanku</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="presentasi">
+                            <i class="pe-7s-display1"></i> <!-- Ikon layar presentasi -->
+                            <p>Presentasi dan Input Nilai</p>
                         </a>
                     </li>
                     <li>
@@ -166,7 +166,7 @@ function tanggal_indo($tanggal)
                                 <div class="header">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <h4 class="title">Form Pengajuan</h4>
+                                            <h4 class="title">Form Laporan</h4>
                                         </div>
                                         <div class="col-md-6" align="right">
                                             <?php echo '<small>' . tanggal_indo(date("Y-m-d")) . '</small>'; ?>
@@ -174,116 +174,39 @@ function tanggal_indo($tanggal)
                                     </div>
                                 </div>
                                 <div class="content">
-                                    <form id="form_user" method="post" action="system/proses_tambah_pendaftaran.php" enctype="multipart/form-data">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Dosen Wali</label>
-                                                    <input type="text" name="dosen_wali" id="form_dosen_wali" class="form-control" placeholder="Dosen Wali" value="<?php echo htmlspecialchars($dosen_login, ENT_QUOTES, 'UTF-8'); ?>" required
-                                                        oninvalid="this.setCustomValidity('Mohon isi form berikut !')"
-                                                        oninput="setCustomValidity('')" readonly>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="program">Program MBKM</label>
-                                                    <select name="program" id="program" class="form-control" required
-                                                        oninvalid="this.setCustomValidity('Mohon pilih program MBKM!')"
-                                                        oninput="setCustomValidity('')">
-                                                        <option value="">Pilih Program MBKM</option>
-                                                        <?php echo $program_options; ?>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <form id="form_laporan" method="post" action="system/proses_tambah_laporan.php">
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Nama</label>
-                                                    <input type="text" name="nama" id="form_nama" class="form-control" placeholder="Nama" value="<?php echo htmlspecialchars($nama_login, ENT_QUOTES, 'UTF-8'); ?>" required
-                                                        oninvalid="this.setCustomValidity('Mohon isi form berikut !')"
-                                                        oninput="setCustomValidity('')" readonly>
+                                                    <input type="text" name="nama" class="form-control" placeholder="Nama Lengkap" value="<?php echo htmlspecialchars($nama_login, ENT_QUOTES, 'UTF-8'); ?>" required readonly>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label>NIM</label>
-                                                    <input type="text" name="nim" id="form_nim" class="form-control" placeholder="NIM" value="<?php echo htmlspecialchars($nim_login, ENT_QUOTES, 'UTF-8'); ?>" required
-                                                        oninvalid="this.setCustomValidity('Mohon isi form berikut !')"
-                                                        oninput="setCustomValidity('')" readonly>
+                                                    <label>Tanggal</label>
+                                                    <input type="date" name="tanggal" class="form-control" value="<?php echo date('Y-m-d'); ?>" required>
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-md-6">
+                                            <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label>Kelas</label>
-                                                    <input type="text" name="kelas" id="form_kelas" class="form-control" placeholder="Kelas" value="<?php echo htmlspecialchars($kelas_login, ENT_QUOTES, 'UTF-8'); ?>" required
-                                                        oninvalid="this.setCustomValidity('Mohon isi form berikut !')"
-                                                        oninput="setCustomValidity('')" readonly>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>No WhatsApp</label>
-                                                    <input type="text" name="no_whatsapp" id="form_no_whatsapp" class="form-control" placeholder="No WhatsApp" value="<?php echo htmlspecialchars($no_hp_login, ENT_QUOTES, 'UTF-8'); ?>" required
-                                                        oninvalid="this.setCustomValidity('Mohon isi form berikut !')"
-                                                        oninput="setCustomValidity('')" readonly>
+                                                    <label>Laporan</label>
+                                                    <textarea name="laporan_harian" class="form-control" rows="5" placeholder="Masukkan laporan Anda..." required></textarea>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label>IPK</label>
-                                                    <input type="number" name="ipk" id="form_ipk" class="form-control" placeholder="IPK" min="0" max="4" step="0.01" required>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label>Total SKS</label>
-                                                    <input type="number" name="total_sks" id="form_total_sks" class="form-control" placeholder="Total SKS" min="0" required>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label for="program">Periode</label>
-                                                    <select name="periode" id="periode" class="form-control" required
-                                                        oninvalid="this.setCustomValidity('Mohon pilih periode!')"
-                                                        oninput="setCustomValidity('')">
-                                                        <option value="">Pilih Periode</option>
-                                                        <?php echo $periode_options; ?>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label>Curriculum Vitae (CV)</label>
-                                                    <input type="file" name="cv" id="form_cv" class="form-control" required>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label>Transkrip Nilai (KHS)</label>
-                                                    <input type="file" name="khs" id="form_khs" class="form-control" required>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label>Portofolio</label>
-                                                    <input type="file" name="portofolio" id="form_portofolio" class="form-control" required>
-                                                </div>
-                                            </div>
-                                        </div>
+
                                         <div class="row">
                                             <div class="col-md-12" align="right">
-                                                <button type="submit" name="input" class="btn btn-primary btn-fill">
-                                                <i class="fa fa-check"></i> Ajukan</button>
+                                                <button type="submit" class="btn btn-primary btn-fill">
+                                                    <i class="fa fa-save"></i> Simpan Laporan
+                                                </button>
                                             </div>
                                         </div>
+
                                         <div class="clearfix"></div>
                                     </form>
                                 </div>
@@ -292,34 +215,6 @@ function tanggal_indo($tanggal)
                     </div>
                 </div>
             </div>
-            <footer class="footer">
-                <div class="container-fluid">
-                    <nav class="pull-left">
-                        <ul>
-                            <li>
-                                <a href="index">
-                                    Home
-                                </a>
-                            </li>
-                            <li>
-                                <a href="pendaftaran">
-                                    Pendaftaran
-                                </a>
-                            </li>
-                            <li>
-                                <a href="pengajuan">
-                                    Pengajuan
-                                </a>
-                            </li>
-                            <li>
-                                <a href="riwayat">
-                                    Riwayat
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-            </footer>
         </div>
     </div>
     <script src="assets/dist/sweetalert-dev.js"></script>

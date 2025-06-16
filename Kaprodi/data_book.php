@@ -16,6 +16,7 @@ if (empty($_SESSION['email'])) {
         echo "<script type='text/javascript'>window.location=history.go(-1);</script>";
     }
 }
+$selected_mahasiswa = isset($_GET['mahasiswa']) ? mysqli_real_escape_string($con, $_GET['mahasiswa']) : '';
 ?>
 <!doctype html>
 <html lang="en">
@@ -71,13 +72,13 @@ if (empty($_SESSION['email'])) {
                             <p>Pendaftaran MBKM</p>
                         </a>
                     </li>
-                    <li class="active">
+                    <li>
                         <a href="jenis_pengajuan">
                             <i class="pe-7s-server"></i>
                             <p>Program MBKM</p>
                         </a>
                     </li>
-                    <li>
+                    <li class="active">
                         <a href="book">
                             <i class="pe-7s-note2"></i>
                             <p>Log-Book</p>
@@ -104,6 +105,7 @@ if (empty($_SESSION['email'])) {
                 </ul>
             </div>
         </div>
+
         <div class="main-panel">
             <div class="content">
                 <div class="container-fluid">
@@ -111,115 +113,66 @@ if (empty($_SESSION['email'])) {
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="header">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <h4 class="title">Jenis Pengajuan</h4>
-                                        </div>
-                                        <div class="col-md-6" align="right">
-                                            <a href="tambah_jenispengajuan">
-                                                <button type="button" class="btn btn-primary btn-fill">
-                                                    <i class="fa fa-plus"></i> Tambah Program MBKM
-                                                </button>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <form id="form_user" action="?" method="get">
-                                        <div class="row">
-                                            <div class="col-md-5">
-                                                <div class="form-group">
-                                                    <label>Pencarian : </label>
-
-                                                    <?php
-                                                    if (isset($_GET['cari'])) {
-                                                        $username = ($_GET["cari"]);
-                                                    ?>
-                                                        <input type="text" name="cari" id="cari" class="form-control" placeholder="Nama Program MBKM" value="<?php echo $username ?>">
-                                                    <?php
-                                                    } else {
-                                                    ?>
-                                                        <input type="text" name="cari" id="cari" class="form-control" placeholder="Nama Program MBKM">
-                                                    <?php
-                                                    }
-                                                    ?>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-1">
-                                                <label><br></label>
-                                                <button type="submit" rel="tooltip" class="btn btn-primary btn-fill">
-                                                    <i class="fa fa-search"></i> Cari
-                                                </button>
-                                            </div>
+                                    <h4 class="title">Log-Book Mahasiswa</h4>
+                                </div>
+                                <div class="content">
+                                    <form method="get" action="">
+                                        <div class="form-group">
+                                            <label>Pilih Mahasiswa:</label>
+                                            <select name="mahasiswa" class="form-control" onchange="this.form.submit()">
+                                                <option value="">-- Pilih --</option>
+                                                <?php
+                                                $query_mahasiswa = "SELECT DISTINCT nama_depan FROM laporan_harian";
+                                                $result_mahasiswa = mysqli_query($con, $query_mahasiswa);
+                                                while ($row = mysqli_fetch_assoc($result_mahasiswa)) {
+                                                    echo '<option value="' . htmlspecialchars($row['nama_depan']) . '"' . ($selected_mahasiswa == $row['nama_depan'] ? ' selected' : '') . '>' . htmlspecialchars($row['nama_depan']) . '</option>';
+                                                }
+                                                ?>
+                                            </select>
                                         </div>
                                     </form>
-                                </div>
-                                <div class="content table-responsive table-full-width">
-                                    <?php
-                                    if (isset($_GET['cari'])) {
-                                        $jenispengajuan = ($_GET["cari"]);
-                                        $query = "SELECT * FROM jenis_pengajuan WHERE jenis_pengajuan like '%$jenispengajuan%' ORDER BY id_jenis_pengajuan";
-                                    } else {
-                                        $query = "SELECT * FROM jenis_pengajuan ORDER BY id_jenis_pengajuan";
-                                    }
 
-                                    $result = mysqli_query($con, $query);
-                                    if ($result->num_rows == 0) {
-                                        echo '<div class="content table-responsive table-full-width">
-                                        <table class="table table-hover table-striped">
-                                            <thead>
-                                                <th>No</th>
-                                                <th>PERIODE</th>
-                                                <th>PROGRAM MBKM</th>
-                                                <th>BATAS PROGRAM</th>
-                                                <th>Pengaturan</th>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td colspan="8" align="center">
-                                                        Anda tidak memiliki pengajuan
-                                                        <br>
-                                                        <a href="user">
-                                                            <button type="button" class="btn btn-primary btn-fill btn-sm">
-                                                                <i class="fa fa-refresh"></i> Refresh data
-                                                            </button>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>';
-                                    } else {
-                                        echo '<div class="content table-responsive table-full-width">
-                                        <table class="table table-hover table-striped table-paginate">
-                                                <thead>
-                                                <th>No</th>
-                                                <th>PERIODE</th>
-                                                <th>PROGRAM MBKM</th>
-                                                <th>BATAS PROGRAM</th>
-                                                <th>Pengaturan</th>
-                                                </thead>
+                                    <?php
+                                    if ($selected_mahasiswa) {
+                                        // Menampilkan laporan harian mahasiswa
+                                        $query = "SELECT tanggal, nama_depan, laporan_harian FROM laporan_harian WHERE nama_depan = '$selected_mahasiswa' ORDER BY tanggal DESC";
+                                        $result = mysqli_query($con, $query);
+                                        if (mysqli_num_rows($result) > 0) {
+                                            echo '<table class="table table-hover">
+                                            <thead><tr><th>No</th><th>Tanggal</th><th>Nama</th><th>Laporan</th></tr></thead>
                                             <tbody>';
-                                        $no = 1;
-                                        while ($data = mysqli_fetch_assoc($result)) {
-                                            echo '<tr>
-                                            <td>' . $no . '</td>
-                                            <td>' . $data['periode'] . '</td>
-                                            <td>' . $data['jenis_pengajuan'] . '</td>
-                                            <td>' . $data['tgl_mulai'] . ' - ' . $data['tgl_selesai'] . '</td>
-                                            <td>
-                                                <a href="edit_jenispengajuan?id=' . $data['id_jenis_pengajuan'] . '">
-                                                    <button type="button" rel="tooltip" class="btn btn-primary btn-fill btn-sm">
-                                                        <i class="fa fa-edit"></i>
-                                                    </button>
-                                                </a>
-                                                <button onclick="hapus(' . $data['id_jenis_pengajuan'] . ')" type="button" rel="tooltip" class="btn btn-danger btn-fill btn-sm">
-                                                    <i class="fa fa-trash"></i>
-                                                </button>';
-                                            $no++;
+                                            $no = 1;
+                                            while ($data = mysqli_fetch_assoc($result)) {
+                                                echo '<tr>
+                                            <td>' . $no++ . '</td>
+                                            <td>' . htmlspecialchars($data['tanggal']) . '</td>
+                                            <td>' . htmlspecialchars($data['nama_depan']) . '</td>
+                                            <td>' . htmlspecialchars($data['laporan_harian']) . '</td>
+                                          </tr>';
+                                            }
+                                            echo '</tbody></table>';
+                                        } else {
+                                            echo '<p align="center">Tidak ada data laporan untuk mahasiswa ini.</p>';
                                         }
-                                        echo '</tbody>
-                                        </table>
-                                    </div>';
+
+                                        // Menampilkan laporan akhir mahasiswa
+                                        $query_laporan = "SELECT file_laporan FROM laporan_akhir WHERE nama_depan = '$selected_mahasiswa'";
+                                        $result_laporan = mysqli_query($con, $query_laporan);
+                                        if (mysqli_num_rows($result_laporan) > 0) {
+                                            $data_laporan = mysqli_fetch_assoc($result_laporan);
+                                            // Memastikan path file benar dengan menambahkan folder 'uploads/' di luar folder Kaprodi
+                                            $file_path = '../uploads/' . htmlspecialchars($data_laporan['file_laporan']);
+                                            echo '<div class="alert alert-success" align="center">
+                                            Laporan akhir tersedia:
+                                            <a href="' . $file_path . '" target="_blank">
+                                                 <button type="button" class="btn btn-warning btn-fill">
+                                                    <i></i> Lihat Laporan Akhir
+                                                </button>
+                                            </a>
+                                          </div>';
+                                        } else {
+                                            echo '<div class="alert alert-danger" align="center">Mahasiswa belum mengumpulkan laporan akhir.</div>';
+                                        }
                                     }
                                     ?>
                                 </div>
@@ -229,6 +182,7 @@ if (empty($_SESSION['email'])) {
                 </div>
             </div>
         </div>
+
     </div>
 
 

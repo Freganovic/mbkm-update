@@ -106,6 +106,12 @@ function tanggal_indo($tanggal)
                         </a>
                     </li>
                     <li>
+                        <a href="book">
+                            <i class="pe-7s-note2"></i>
+                            <p>Log-Book</p>
+                        </a>
+                    </li>
+                    <li>
                         <a href="presentasi">
                             <i class="pe-7s-display1"></i> <!-- Ikon layar presentasi -->
                             <p>Presentasi dan Input Nilai</p>

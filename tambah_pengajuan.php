@@ -77,7 +77,7 @@ function tanggal_indo($tanggal)
                         $id_login = $data_login["id_user"];
                         $username_login = $data_login["username"];
                         ?>
-                        System Pengajuan<br><small>( TIM ) - <?php echo htmlspecialchars($username_login, ENT_QUOTES, 'UTF-8'); ?></small>
+                        System MBKM<br><small>( TIM ) - <?php echo htmlspecialchars($username_login, ENT_QUOTES, 'UTF-8'); ?></small>
                     </a>
                 </div>
                 <ul class="nav">
