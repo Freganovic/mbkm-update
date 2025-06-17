@@ -144,6 +144,8 @@ if (empty($_SESSION['email'])) {
 
                                 <div class="content table-responsive table-full-width">
                                     <?php
+                                    $base_url = "https://mbkm.kitabantu.my.id"; // <- Ganti sesuai domain hosting Tuan Muda
+
                                     $cari = isset($_GET['cari']) ? mysqli_real_escape_string($con, $_GET['cari']) : '';
                                     if ($cari) {
                                         $query = "SELECT nama, nim, kelas FROM pendaftaran WHERE nama LIKE '%$cari%' ORDER BY nim";
@@ -155,56 +157,52 @@ if (empty($_SESSION['email'])) {
 
                                     if (mysqli_num_rows($result) == 0) {
                                         echo '
-                                <div class="content table-responsive table-full-width">
-                                    <table class="table table-hover table-striped">
-                                        <thead>
-                                            <th>No</th>
-                                            <th>Nama</th>
-                                            <th>NIM</th>
-                                            <th>Kelas</th>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td colspan="4" align="center">
-                                                    Tidak ada data pendaftaran
-                                                    <br>
-                                                    <a href="user">
-                                                        <button type="button" class="btn btn-primary btn-fill btn-sm">
-                                                            <i class="fa fa-refresh"></i> Refresh data
-                                                        </button>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>';
+    <table class="table table-hover table-striped">
+        <thead>
+            <th>No</th>
+            <th>Nama</th>
+            <th>NIM</th>
+            <th>Kelas</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td colspan="4" align="center">
+                    Tidak ada data pendaftaran
+                    <br>
+                    <a href="user">
+                        <button type="button" class="btn btn-primary btn-fill btn-sm">
+                            <i class="fa fa-refresh"></i> Refresh data
+                        </button>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>';
                                     } else {
                                         echo '
-                                <div class="content table-responsive table-full-width">
-                                    <table class="table table-hover table-striped table-paginate">
-                                        <thead>
-                                            <th>No</th>
-                                            <th>Nama</th>
-                                            <th>NIM</th>
-                                            <th>Kelas</th>
-                                        </thead>
-                                        <tbody>';
+    <table class="table table-hover table-striped table-paginate">
+        <thead>
+            <th>No</th>
+            <th>Nama</th>
+            <th>NIM</th>
+            <th>Kelas</th>
+        </thead>
+        <tbody>';
                                         $no = 1;
                                         while ($data = mysqli_fetch_assoc($result)) {
                                             $nama_url = urlencode($data['nama']);
                                             echo '
-                                        <tr onclick="window.location.href=\'http://localhost/system_pengajuan-mbkm/kaprodi/data_book?mahasiswa=' . $nama_url . '\'" style="cursor: pointer;">
-                                            <td>' . $no . '</td>
-                                            <td>' . htmlspecialchars($data['nama']) . '</td>
-                                            <td>' . htmlspecialchars($data['nim']) . '</td>
-                                            <td>' . htmlspecialchars($data['kelas']) . '</td>
-                                        </tr>';
+        <tr onclick="window.location.href=\'' . $base_url . '/kaprodi/data_book?mahasiswa=' . $nama_url . '\'" style="cursor: pointer;">
+            <td>' . $no . '</td>
+            <td>' . htmlspecialchars($data['nama']) . '</td>
+            <td>' . htmlspecialchars($data['nim']) . '</td>
+            <td>' . htmlspecialchars($data['kelas']) . '</td>
+        </tr>';
                                             $no++;
                                         }
                                         echo '
-                                        </tbody>
-                                    </table>
-                                </div>';
+        </tbody>
+    </table>';
                                     }
                                     ?>
                                 </div>
